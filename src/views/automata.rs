@@ -31,6 +31,8 @@ pub mod automata{
                     self.entrada_slide = self.entrada_slide[1..].to_string();
                     self.estado_15();
                 }
+            } else if self.entrada_slide.len() == 0 {
+                self.valido = String::from("0");
             }
         }
         
