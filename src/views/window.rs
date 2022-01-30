@@ -1,12 +1,13 @@
 use iced::{
-    text_input::{self,TextInput},Text,Sandbox,Settings,Element,Column, Button,Length
+    text_input::{self,TextInput},Text,Sandbox,Settings,Element,Column, Button,Length, HorizontalAlignment
 };
 
-use super::{text_input_enter, button_next, automata};
+use super::{text_input_enter, button_next, automata, style};
 
 
 #[derive(Default)]
 pub struct AutomataMatricula{
+    theme: style::style::Theme,
     input: text_input_enter::TextInputEnter,
     button_next: button_next::ButtonNext,
     text_tipo_vehiculo:String,
@@ -68,7 +69,7 @@ impl Sandbox for AutomataMatricula {
         let button_next = Button::new(
             &mut self.button_next.btn,
             Text::new("Validar matricula")
-        ).on_press(Message::ButtonChanged).width(Length::Shrink);
+        ).on_press(Message::ButtonChanged).width(Length::Shrink).style(self.theme).height(Length::Units(35));
 
         let text_tipo_vehiculo = Text::new(
             "Tipo vehiculo"

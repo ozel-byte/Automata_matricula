@@ -38,11 +38,11 @@ pub mod automata{
         
     }
 
-     trait E1{
+    trait E1{
         fn estado_1(&mut self);
-     }
+    }
 
-     impl E1 for ResultMatricula{
+    impl E1 for ResultMatricula{
          fn estado_1(&mut self){
              
             if ABC2.contains(self.entrada_slide[0..1].trim()) {
@@ -59,14 +59,14 @@ pub mod automata{
                 self.estado_21();
             }
          }
-     }
+    }
 
-     trait E2{
-         fn estado_2(&mut self);
-     }
+    trait E2{
+        fn estado_2(&mut self);
+    }
 
-     impl E2 for ResultMatricula{
-         fn estado_2(&mut self) {
+    impl E2 for ResultMatricula{
+        fn estado_2(&mut self) {
             if ABC.contains(self.entrada_slide[0..1].trim()) {
                 self.entrada_slide = self.entrada_slide[1..].to_string();
                 self.estado_3();
@@ -75,10 +75,10 @@ pub mod automata{
                 self.entrada_slide = self.entrada_slide[1..].to_string();
                 self.estado_17();
             }
-         }
-     }
+        }
+    }
 
-     trait E3{
+    trait E3{
         fn estado_3(&mut self);
     }
 
@@ -144,7 +144,7 @@ pub mod automata{
         fn estado_7(&mut self) {
             if self.entrada_slide[0..1].trim() == "-" {
                 self.entrada_slide = self.entrada_slide[1..].to_string();
-                self.estado_9();
+                self.estado_8();
             }
         }
     }
