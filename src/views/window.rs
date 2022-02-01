@@ -1,13 +1,13 @@
 use iced::{
-    text_input::{self,TextInput},Text,Sandbox,Settings,Element,Column, Button,Length, HorizontalAlignment
+    text_input::TextInput, Text, Sandbox, Element, Column, Button, Length, 
+    HorizontalAlignment, Color, Row, Container,
 };
 
-use super::{text_input_enter, button_next, automata, style};
+use super::{text_input_enter, button_next, automata, style2};
 
 
 #[derive(Default)]
 pub struct AutomataMatricula{
-    theme: style::style::Theme,
     input: text_input_enter::TextInputEnter,
     button_next: button_next::ButtonNext,
     text_tipo_vehiculo:String,
@@ -60,51 +60,86 @@ impl Sandbox for AutomataMatricula {
     }
 
     fn view(&mut self) -> Element<Message>{
-        let input_one = TextInput::new(
-            &mut self.input.input,
-            "Ingresar Matricula",
-            &self.input.input_value,
-            Message::DataInputChanged,
-        ).size(20).padding(25);
-        let button_next = Button::new(
-            &mut self.button_next.btn,
-            Text::new("Validar matricula")
-        ).on_press(Message::ButtonChanged).width(Length::Shrink).style(self.theme).height(Length::Units(35));
+        let column_component_input_and_button: Column<_> = Column::new()
+        .push(
+            TextInput::new(
+                &mut self.input.input,
+                "Ingresar Matricula",
+                &self.input.input_value,
+                Message::DataInputChanged,
+            )
+            .width(Length::Units(300))
+            .padding(10),
+        )
+        .push(
+            Button::new(
+                &mut self.button_next.btn,
+                Text::new("Validar matricula")
+                    .horizontal_alignment(HorizontalAlignment::Center)
+                    .vertical_alignment(iced::VerticalAlignment::Center),
+            ).on_press(Message::ButtonChanged)
+            .width(Length::Units(250))
+            .style(style2::style::Button)
+            .height(Length::Units(35)),
+        ).align_items(iced::Align::Center)
+        .spacing(20);
 
-        let text_tipo_vehiculo = Text::new(
-            "Tipo vehiculo"
-        ).size(20).horizontal_alignment(iced::HorizontalAlignment::Center).width(Length::Fill);
-        let value_tipo_vehiculo = Text::new(
-            self.value_tipo.clone()
-        ).horizontal_alignment(iced::HorizontalAlignment::Center).color([0.5,0.5,0.5]).width(Length::Fill);
-
-        let text_estado = Text::new(
-            "estado"
-        ).size(20).horizontal_alignment(iced::HorizontalAlignment::Center).width(Length::Fill);
-        let value_estado = Text::new(
-            self.value_estado.clone()
-        ).horizontal_alignment(iced::HorizontalAlignment::Center).color([0.5,0.5,0.5]).width(Length::Fill).height(Length::Shrink);
-        let status = if self.valido_estado == "2"  {
-            "Error de matricula"
+        let column_info = if self.valido_estado != "2" {
+            Column::new()
+            .push(Text::new("Tipo de Vehiculo:").horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(0.1, 0.1, 0.1)))
+            .push(Text::new(self.value_tipo.clone()).horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(65.0/255.0,90.0/255.0,109.0/255.0)))
+            .push(Text::new("Estado:").horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(0.1,0.1,0.1)))
+            .push(Text::new(self.value_estado.clone()).horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(65.0/255.0,90.0/255.0,109.0/255.0)))
+            .push(Text::new("Matricula:").horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(0.1,0.1,0.1)))
+            .push(Text::new(self.entrada_t.clone()).horizontal_alignment(HorizontalAlignment::Center).color(Color::from_rgb(65.0/255.0,90.0/255.0,109.0/255.0)))
+            .spacing(20)
         } else {
-            " "
+            Column::new().push(
+                Text::new("Matricula invalida")
+                    .horizontal_alignment(HorizontalAlignment::Center)
+                    .vertical_alignment(iced::VerticalAlignment::Center)
+                    .color(Color::from_rgb(237.0 / 255.0, 44.0 / 255.0, 29.0 / 255.0))
+                    .size(20),
+            )
         };
-        let error_text = Text::new(
-                status
-        ).size(20).horizontal_alignment(iced::HorizontalAlignment::Center).width(Length::Fill);
 
-        Column::new()
-        .padding(60)
-        .push(input_one)
-        .push(button_next)
-        .push(text_tipo_vehiculo)
-        .push(value_tipo_vehiculo)
-        .push(text_estado)
-        .push(value_estado)
-        .push(error_text)
-        .push(Text::new("Matricula").size(20).width(Length::Fill))
-        .push(Text::new(self.entrada_t.clone()).size(20).width(Length::Fill))
-        .into()
+        let row_component: Row<_> = Row::new()
+            .push(column_component_input_and_button)
+            .push(column_info)
+            .spacing(30);
+
+        let column_component_welcome = Column::new()
+            .push(
+                Text::new("Bienvenido :)")
+                    .size(40)
+                    .color(Color::from_rgb(0.1, 0.1, 0.1)),
+            )
+            .push(
+                Text::new(
+                    "Programa que valida placas de Guanajuato y Guerrero",
+                )
+                .color(Color::from_rgb(129.0 / 255.0, 129.0 / 255.0, 135.0 / 255.0))
+                .size(15),
+            )
+            .push(row_component)
+            .spacing(30)
+            .align_items(iced::Align::Center);
+
+        Container::new(column_component_welcome)
+            .center_x()
+            .center_y()
+            .width(Length::Fill)
+            .height(Length::Fill)
+            .style(style2::style::Container)
+            .into()
     }
+}
+
+trait C1 {
+    fn component_container_body(&self);
+}
+
+impl C1 for AutomataMatricula {
+    fn component_container_body(&self) {}
 }
 
