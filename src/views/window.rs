@@ -43,20 +43,20 @@ impl Sandbox for AutomataMatricula {
                 self.input.input_value = value;
             }
             Message::ButtonChanged => {
-            //   let mut entra =   automata::automata::ResultMatricula{
-            //       valido: String::from("0"),
-            //       entrada_text: self.input.input_value.clone(),
-            //       entrada_slide: self.input.input_value.clone(),
-            //       tipo_vehiculo: String::new(),
-            //       estado: String::new()
-            //   };
-            //    entra.estado_0();
-            //   self.value_tipo = entra.tipo_vehiculo;
-            //   self.value_estado = entra.estado;
-            //   self.valido_estado = entra.valido;
-            //   self.entrada_t = entra.entrada_text;
+               let mut entra =   automata::automata::ResultMatricula{
+                   valido: String::from("0"),
+                   entrada_text: self.input.input_value.clone(),
+                   entrada_slide: self.input.input_value.clone(),
+                   tipo_vehiculo: String::new(),
+                   estado: String::new()
+               };
+                entra.estado_0();
+               self.value_tipo = entra.tipo_vehiculo;
+               self.value_estado = entra.estado;
+               self.valido_estado = entra.valido;
+               self.entrada_t = entra.entrada_text;
                
-                test();
+                //test();
             }
         }
     }
@@ -97,7 +97,14 @@ impl Sandbox for AutomataMatricula {
             .spacing(20)
         } else {
             Column::new().push(
-                Text::new("Matricula invalida")
+                Text::new("La matricula no pertenece a Guanajuato")
+                    .horizontal_alignment(HorizontalAlignment::Center)
+                    .vertical_alignment(iced::VerticalAlignment::Center)
+                    .color(Color::from_rgb(237.0 / 255.0, 44.0 / 255.0, 29.0 / 255.0))
+                    .size(20),
+            )
+            .push(
+                Text::new("o Guerrero o es invalida")
                     .horizontal_alignment(HorizontalAlignment::Center)
                     .vertical_alignment(iced::VerticalAlignment::Center)
                     .color(Color::from_rgb(237.0 / 255.0, 44.0 / 255.0, 29.0 / 255.0))
@@ -146,28 +153,35 @@ impl C1 for AutomataMatricula {
 }
 
 
-fn test(){
+/*fn test(){
     println!("Guanajuato");
     let abc = "ABCDEFGHJKLMNPRSTUVWXYZ";
-    //G-G/Y-A/Z//001/999//A/Z
+    G-G/Y-A/Z001/999A/Z
     let mut entrada_test = String::new();
-    //Digito 1
-    for x in 7..22{
-        entrada_test = "G".to_string()+&abc[x..x+1].to_string()+"A"+"-"+"001"+"A";
-        let mut run_automata_test = automata::automata::ResultMatricula{
-                  valido: String::from("0"),
-                  entrada_text: entrada_test.clone(),
-                  entrada_slide: entrada_test,
-                  tipo_vehiculo: String::new(),
-                  estado: String::new()
-        };
+    Digito 1
+    for x in 6..22{
+        entrada_test = "G".to_string()+&abc[x..x+1].to_string()+"A"+"-"+"001"+ "-"+"A";
+        for y in 0..2{
+            for z in 0..9{
+                for xx in 0..2{
+                    entrada_test = "G".to_string()+&abc[x..x+1].to_string()+&abc[y..y+1].to_string()+"-00"+&z.to_string()+ "-"+&abc[xx..xx+1].to_string();
+                    let mut run_automata_test = automata::automata::ResultMatricula{
+                        valido: String::from("0"),
+                        entrada_text: entrada_test.clone(),
+                        entrada_slide: entrada_test,
+                        tipo_vehiculo: String::new(),
+                        estado: String::new()
+                    };
 
-        run_automata_test.estado_0();
+                    run_automata_test.estado_0();
 
-        if (run_automata_test.valido == String::from("1")){
-            println!("Test paso correctamente, {}",run_automata_test.entrada_text)
-        }else{
-            println!("Test no paso correctamente, {}",run_automata_test.entrada_text)
+                    if (run_automata_test.valido == String::from("1")){
+                        println!("Test paso correctamente, {}",run_automata_test.entrada_text)
+                    }else{
+                        println!("Test no paso correctamente, {}",run_automata_test.entrada_text)
+                    }
+                }
+            }
         }
     }
-}
+}*/

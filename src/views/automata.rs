@@ -20,7 +20,7 @@ pub mod automata{
     impl ResultMatricula {
         pub fn estado_0(&mut self){
             self.valido = String::from("2");
-            if self.entrada_slide.len() == 9 {
+            if self.entrada_slide.len() == 9 && !self.entrada_text.contains(" "){
                 if self.entrada_slide[0..1].trim() == "G"{
                     self.entrada_slide = self.entrada_slide[1..].to_string();
                     self.estado_1();
