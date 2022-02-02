@@ -43,18 +43,20 @@ impl Sandbox for AutomataMatricula {
                 self.input.input_value = value;
             }
             Message::ButtonChanged => {
-              let mut entra =   automata::automata::ResultMatricula{
-                  valido: String::from("0"),
-                  entrada_text: self.input.input_value.clone(),
-                  entrada_slide: self.input.input_value.clone(),
-                  tipo_vehiculo: String::new(),
-                  estado: String::new()
-              };
-               entra.estado_0();
-              self.value_tipo = entra.tipo_vehiculo;
-              self.value_estado = entra.estado;
-              self.valido_estado = entra.valido;
-              self.entrada_t = entra.entrada_text;
+            //   let mut entra =   automata::automata::ResultMatricula{
+            //       valido: String::from("0"),
+            //       entrada_text: self.input.input_value.clone(),
+            //       entrada_slide: self.input.input_value.clone(),
+            //       tipo_vehiculo: String::new(),
+            //       estado: String::new()
+            //   };
+            //    entra.estado_0();
+            //   self.value_tipo = entra.tipo_vehiculo;
+            //   self.value_estado = entra.estado;
+            //   self.valido_estado = entra.valido;
+            //   self.entrada_t = entra.entrada_text;
+               
+                test();
             }
         }
     }
@@ -143,3 +145,29 @@ impl C1 for AutomataMatricula {
     fn component_container_body(&self) {}
 }
 
+
+fn test(){
+    println!("Guanajuato");
+    let abc = "ABCDEFGHJKLMNPRSTUVWXYZ";
+    //G-G/Y-A/Z//001/999//A/Z
+    let mut entrada_test = String::new();
+    //Digito 1
+    for x in 7..22{
+        entrada_test = "G".to_string()+&abc[x..x+1].to_string()+"A"+"-"+"001"+"A";
+        let mut run_automata_test = automata::automata::ResultMatricula{
+                  valido: String::from("0"),
+                  entrada_text: entrada_test.clone(),
+                  entrada_slide: entrada_test,
+                  tipo_vehiculo: String::new(),
+                  estado: String::new()
+        };
+
+        run_automata_test.estado_0();
+
+        if (run_automata_test.valido == String::from("1")){
+            println!("Test paso correctamente, {}",run_automata_test.entrada_text)
+        }else{
+            println!("Test no paso correctamente, {}",run_automata_test.entrada_text)
+        }
+    }
+}
