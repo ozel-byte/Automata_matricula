@@ -10,9 +10,9 @@ use super::{text_input_enter, button_next, automata, style2};
 pub struct AutomataMatricula{
     input: text_input_enter::TextInputEnter,
     button_next: button_next::ButtonNext,
-    text_tipo_vehiculo:String,
+    _text_tipo_vehiculo:String,
     value_tipo: String,
-    text_estado: String,
+    _text_estado: String,
     value_estado: String,
     valido_estado: String,
     entrada_t: String
